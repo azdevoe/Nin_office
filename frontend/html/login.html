@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="container" id="container">
+        <h1 id="h">welcome To Our Login Page</h1>
+
+        <form  method="post" id="loginform">
+            <label for="Nin" placeholder="enter your Nin here">Nin</label>
+            <input type="text" name="Nin" id="Nin"><br><br>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+
+            <button id="btn" type="submit">Submit</button>
+        </form><br><br>
+        <span style="cursor: pointer;" id="forgotPassword"><a href="/forgotPassword">forgot password</a></span>
+        <span style="cursor: pointer;" id="signup">Don't Have An Account<a href="/signup">Create One</a></span>
+    </div>
+    <script src="../js/login.js"></script>
+</body>
+</html>
