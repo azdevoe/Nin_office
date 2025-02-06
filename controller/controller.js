@@ -95,6 +95,7 @@ async function findOne(name){
     return { error: true, message: error.message };
   }
 }
+
 async function findNin(Nin) {
   try {
     console.log(`i am entering the findNin function in the controller`);

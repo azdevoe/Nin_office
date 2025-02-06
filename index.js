@@ -14,6 +14,9 @@ let adminRouter = require('./admin/router')
 let messageController = require('./controller/messageController')
 const messageRouter = require('./router/messageRouter')
 const cors = require('cors')
+require('dotenv').config();
+
+const port = process.env.port;
 app.use(express.json())
 
 app.use(cookie())
@@ -101,9 +104,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/apt',{
 
 
 
-app.listen(2000,()=>{
-console.log(color.italic.bgBlue(`listening at port 2000`));
+app.listen(port,()=>{
+console.log(color.italic.bgBlue(`listening at port ${port}`));
 })
+
 
 // const crypto = require('crypto');
 // const secretKey = crypto.randomBytes(64).toString('hex');

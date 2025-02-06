@@ -61,6 +61,7 @@ const protectedRoute = (req, res, next) => {
   }
 };
 
+//this is meant to check if the user is an admin
 const checkRole = (req, res,next) => {
     
 }
@@ -93,6 +94,7 @@ router.get('/forgotPassword', protectedRoute, function (req, res) {
   res.sendFile(path.resolve(__dirname, '../frontend', 'html', 'forgotPassword.html'));
   console.log('home page sent');
 });
+
 router.get('/verifyOtp', protectedRoute, function (req, res) {
   res.sendFile(path.resolve(__dirname, '../frontend', 'html', 'verifyOtp.html'));
   console.log('home page sent');

@@ -82,7 +82,7 @@ catch (error) {
 
 
 
-   async function sendOtpEmail( email, otp) {
+async function sendOtpEmail( email, otp) {
   try {
     const transporter = nodemailer.createTransport({
   service: 'gmail',

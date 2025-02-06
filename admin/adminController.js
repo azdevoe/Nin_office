@@ -53,7 +53,7 @@ async function creteUser(name, password, Nins, roles) {
 async function getAll(){
     try {
             const uu =await Schema.find({},{_id:0,__v:0})
-            //console.log(uu);
+            // console.log(uu);
             return{
                 error: false,
                 message: uu

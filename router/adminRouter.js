@@ -184,6 +184,7 @@ router.put('/update/:id/name', async (req, res) => {
 
 
 
+
 router.post('/verify', async (req, res) => {
   try {
     console.log(`the beginning`);
@@ -229,6 +230,15 @@ router.post('/verify', async (req, res) => {
       secure: true,
       sameSite: 'strict',
     });
+
+    const decodedNin = data.Nin
+    console.log(`this is decodedNin ${decodedNin}`);
+    res.cookie('Nin', decodedNin, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
+
       res.status(200).json({ status: 200, token, refreshToken });
     }
   } catch (error) {
