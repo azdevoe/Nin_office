@@ -8,6 +8,7 @@ const yy = mongoose.Schema({
   },
   password: {
     type: String,
+    required: true
   },
   Nin: {
     type: Number,
