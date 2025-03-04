@@ -49,7 +49,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/apt',{
 
 
 }).then(()=>{
-    console.log(color.bold.bgGreen(`connected to MongoDB server`));
+    console.log(color.bold.bgGreen(`connected to MongoDB serverrr`));
         
     
     
