@@ -15,7 +15,6 @@ let messageController = require('./controller/messageController')
 const messageRouter = require('./router/messageRouter')
 const cors = require('cors')
 require('dotenv').config();
-
 const port = process.env.port;
 app.use(express.json())
 

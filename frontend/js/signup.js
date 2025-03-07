@@ -35,11 +35,8 @@ async function verifyUserCredentials(data) {
       document.cookie = `accessToken=${result.accessToken}; max-age=${3600}; Secure; HttpOnly`;
       document.cookie = `refreshToken=${result.refreshToken}; max-age=${604800}; Secure; HttpOnly`;
       alert('Login successful!');
-      fetch('/home')
-        .then(response => response.text())
-        .then(html => {
-          document.body.innerHTML = html;
-        });
+                 window.location = '/home'; 
+
     } else {
       alert(result.error || 'An error occurred. Please try again.');
       console.error(result);
