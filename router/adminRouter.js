@@ -212,7 +212,7 @@ router.post('/verify', async (req, res) => {
         const decodedNin = data.Nin;
         console.log(`this is decodedNin ${decodedNin}`);
         res.cookie('Nin', decodedNin, {
-            httpOnly: true,
+            //httpOnly: true,
             secure: true,
             sameSite: 'strict',
         });
