@@ -5,7 +5,7 @@ const otpSchema = require('../schema/otpSchema')
 
 const expiredOtp = mongoose.Schema({
     Nin:{
-        type: Number,
+        type: Number, 
         required: true,
         validate: {
                     validator: async (Nin) => {

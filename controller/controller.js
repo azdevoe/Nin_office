@@ -187,6 +187,8 @@ async function verifyUser(Nin, password){
          const find =await schema.findOne({Nin:Nin})
           if(!find){
               console.log(`user ${Nin} not found`);
+              console.log(`+++++__________________----------==============`);
+
               return{
                 error: true,
                 message: `user ${Nin} not found`
@@ -223,6 +225,37 @@ async function verifyUser(Nin, password){
         }
       }
 }
+
+async function changePassword(Nin, password) {
+  try {
+    const user = await schema.findOne({ Nin: Nin });
+    if (!user) {
+      console.log(`User with Nin ${Nin} doesn't exist`);
+      return { error: true, message: `User with Nin ${Nin} doesn't exist` };
+    } else {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const updatedUser = await schema.findOneAndUpdate(
+        { Nin: Nin },
+        { $set: { password: hashedPassword } },
+        { new: true }
+      );
+      console.log(`Password changed for user with Nin ${Nin}`);
+      return { error: false, data: updatedUser };
+    }
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+}
+
+
+
+
+
+module.exports = {
+    creteUser,genRand,getAll,findOne,updateUser,verifyUser,changePassword,findNin,findEmail
+}
+
+
 
 
 // async function verifyUser(Nin, password){
@@ -285,32 +318,3 @@ async function verifyUser(Nin, password){
 //       }
 //   }
 // }
-
-async function changePassword(Nin, password) {
-  try {
-    const user = await schema.findOne({ Nin: Nin });
-    if (!user) {
-      console.log(`User with Nin ${Nin} doesn't exist`);
-      return { error: true, message: `User with Nin ${Nin} doesn't exist` };
-    } else {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const updatedUser = await schema.findOneAndUpdate(
-        { Nin: Nin },
-        { $set: { password: hashedPassword } },
-        { new: true }
-      );
-      console.log(`Password changed for user with Nin ${Nin}`);
-      return { error: false, data: updatedUser };
-    }
-  } catch (error) {
-    return { error: true, message: error.message };
-  }
-}
-
-
-
-
-
-module.exports = {
-    creteUser,genRand,getAll,findOne,updateUser,verifyUser,changePassword,findNin,findEmail
-}

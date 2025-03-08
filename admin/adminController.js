@@ -1,6 +1,7 @@
 let Schema = require("../admin/adminSchema");
 let bcrypt = require('bcrypt');
 const allData = require('../controller/controller');
+let color = require('colors')
 
 async function creteUser(name, password, Nins, roles) {
   let ggg = await bcrypt.hash(password, 10);

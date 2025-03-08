@@ -2,6 +2,7 @@ const form = document.querySelector('#loginform');
 const Nins = document.querySelector('#Nin');
 const passwords = document.querySelector('#password');
 const forgotPassword = document.querySelector('#forgotPassword');
+const ninComplaint = document.querySelector('.ninComplaint');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -23,13 +24,12 @@ async function verifyUserCredentials(data) {
             body: JSON.stringify(data),
         });
         const result = await response.json();
-        if (response.ok) {
-            document.cookie = `accessToken=${result.accessToken}; max-age=${3600}; Secure; HttpOnly`;
+        if (response.ok && !result.error) { 
+            document.cookie = `accessToken=${result.token}; max-age=${3600}; Secure; HttpOnly`; // Fixed to result.token
             document.cookie = `refreshToken=${result.refreshToken}; max-age=${604800}; Secure; HttpOnly`;
-            alert('Login successful!');
-            window.location = '/home'; 
+            window.location = '/home';
         } else {
-            alert(result.error || 'An error occurred. Please try again.');
+            ninComplaint.innerHTML =  `${data.Nin} doesn't exist`
             console.error(result);
         }
     } catch (error) {

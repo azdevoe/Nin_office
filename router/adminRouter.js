@@ -2,6 +2,7 @@ const express = require('express');
 const{generateToken,generateRefreshToken}=require('../auth')
 const router = express.Router();
 router.use(express.json());
+let color = require('colors')
 
 
 const  controller = require('../controller/controller')
@@ -89,28 +90,6 @@ router.get('/allUsers', async (req, res)=>{
    }
 })
 
-// router.get('/user/:id',async (req,res) => {
-//     // http://localhost:2000/router/user/2024889555104
-//     console.log(req.params);
-//     const  id = req.params.id
-//     const user = await controller.findNin(id)
-//     if(!user){
-//             console.log(`User ${id} not found`);
-//             res.status(404).json({
-//             message: 'User not found'
-//         })
-//         return
-//     }else{
-//         console.log(`user was found using router id.Nin`);
-        
-//             res.status(200).json({
-//                 status: 200,
-//                 data: user
-//             })
-//             return
-//     }
-    
-// })
 router.get('/user/:id', async (req, res) => {
   // http://localhost:2000/router/user/2024889555104
     const id = req.params.id;
@@ -184,70 +163,66 @@ router.put('/update/:id/name', async (req, res) => {
 
 
 
-
 router.post('/verify', async (req, res) => {
-  try {
-    console.log(`the beginning`);
-    console.log(req.body);
-    console.log('the end');
-    let { Nin, password } = req.body;
-    console.log(`Nin value: ${Nin} (type: ${typeof Nin})`);
-    console.log(Nin, password);
-    const user = await controller.verifyUser(Nin, password);
-    if (!user) {
-      res.status(404).send({ error: `User not found` });
-    } else {
-      let Nin = Number(req.body.Nin);
-      console.log(`Nin value: ${Nin} (type: ${typeof Nin})`);
-      const { data } = await controller.findNin(Nin);
-      console.log(`this is the user ${JSON.stringify(data)}`);
-      console.log(data);
-      const token = generateToken({ name: data.name, hobbies: data.hobbies });
-      const refreshToken = generateRefreshToken({ name: data.name, hobbies: data.hobbies });
-      const tokenExpirationTime = 1 * 60 * 60 * 1000;
-      const refreshTokenExpirationTime = 7 * 24 * 60 * 60 * 1000;
-      res.setHeader('Content-Type', 'application/json');
-      res.cookie('accessToken', token, {
-        httpOnly: true,
-        // secure: true,
-        sameSite: 'strict',
-        maxAge: tokenExpirationTime,
-      });
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        // secure: true,
-        sameSite: 'strict',
-        maxAge: refreshTokenExpirationTime,
-      });
+    try {
+        console.log(`the beginning`);
+        console.log(req.body);
+        console.log('the end');
+        let { Nin, password } = req.body;
+        console.log(`Nin value: ${Nin} (type: ${typeof Nin})`);
+        console.log(Nin, password);
+        const user = await controller.verifyUser(Nin, password);
+        console.log(color.bold.bgGreen(JSON.stringify(user)));
 
-       const decodedEmail = data.email
-      console.log(`this is me trying to get the email ${decodedEmail}`);
-      
-    console.log(`this is decodedEmail ${decodedEmail}`);
-    
-    res.cookie('email', decodedEmail, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
-    });
+        if (user.error) { // Fix: Check boolean, not string
+            return res.status(404).json({ error: user.message || 'User not found' });
+        }
 
-    const decodedNin = data.Nin
-    console.log(`this is decodedNin ${decodedNin}`);
-    res.cookie('Nin', decodedNin, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
-    });
+        // Success case only runs if no error
+        let parsedNin = Number(req.body.Nin);
+        console.log(`Nin value: ${parsedNin} (type: ${typeof parsedNin})`);
+        const { data } = await controller.findNin(parsedNin);
+        console.log(`this is the user ${JSON.stringify(data)}`);
+        console.log(data);
+        const token = generateToken({ name: data.name, hobbies: data.hobbies });
+        const refreshToken = generateRefreshToken({ name: data.name, hobbies: data.hobbies });
+        const tokenExpirationTime = 1 * 60 * 60 * 1000;
+        const refreshTokenExpirationTime = 7 * 24 * 60 * 60 * 1000;
+        res.setHeader('Content-Type', 'application/json');
+        res.cookie('accessToken', token, {
+            httpOnly: true,
+            sameSite: 'strict',
+            maxAge: tokenExpirationTime,
+        });
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            sameSite: 'strict',
+            maxAge: refreshTokenExpirationTime,
+        });
 
-      res.status(200).json({ status: 200, token, refreshToken });
+        const decodedEmail = data.email;
+        console.log(`this is me trying to get the email ${decodedEmail}`);
+        console.log(`this is decodedEmail ${decodedEmail}`);
+        res.cookie('email', decodedEmail, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+        });
+
+        const decodedNin = data.Nin;
+        console.log(`this is decodedNin ${decodedNin}`);
+        res.cookie('Nin', decodedNin, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+        });
+
+        res.status(200).json({ status: 200, token, refreshToken });
+    } catch (error) {
+        console.error('Error during verification:', error.message);
+        res.status(500).json({ error: error.message });
     }
-  } catch (error) {
-    console.error('Error during verification:', error.message);
-    res.status(500).send({ error: error.message });  }
 });
-
-
-
 
 
 
@@ -438,3 +413,26 @@ module.exports = router
 //     console.log('Email sent: ' + info.response);
 //   }
 // });
+
+// router.get('/user/:id',async (req,res) => {
+//     // http://localhost:2000/router/user/2024889555104
+//     console.log(req.params);
+//     const  id = req.params.id
+//     const user = await controller.findNin(id)
+//     if(!user){
+//             console.log(`User ${id} not found`);
+//             res.status(404).json({
+//             message: 'User not found'
+//         })
+//         return
+//     }else{
+//         console.log(`user was found using router id.Nin`);
+        
+//             res.status(200).json({
+//                 status: 200,
+//                 data: user
+//             })
+//             return
+//     }
+    
+// })

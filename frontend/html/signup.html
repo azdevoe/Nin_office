@@ -8,22 +8,24 @@
     <title>Sign up Page</title>
 </head>
 
-<body>
+<body style="padding: 0;margin:0;">
     <div class="container" id="container">
-        <form class="formContainer signup " method="post">
-            <h1>Create An Account</h1>
-            <label for="name" >Name</label>
-            <input type="text" style="padding: 10px; width:60%;border: radius 50px;" name="name" id="name" placeholder="ENTER YOUR NAME"><br><br>
-            <label for="password" >password</label>
-            <input type="password" style="padding: 10px; width:60%;border: radius 50px;" name="password" id="password" placeholder="enter your password"><br><br>
+                    <span style="background: rgb(14, 210, 220);padding:10px;color:white;margin-top:0; text-align:center;display:block;font-size:35px;">Create An Account</span><br>
+        <form class="formContainer signup " method="post" style="text-align:center; margin-top:0px;">
+            <h2  style="text-align:center;">Name</h2>
+            <input type="text" style="padding: 10px; width:30rem;border-radius: 50px;" name="name" id="name" placeholder="ENTER YOUR NAME" required>
+
+
+            <h2 for="password" >password</h2>
+            <input type="password" style="padding: 10px; width:30rem;border-radius: 50px;" name="password" id="password" placeholder="enter your password" required>
             
-            <label for="email" >Email</label>
-            <input type="email" style="padding: 10px; width:60%;border: radius 50px;" name="email" id="email" placeholder="enter your email"><br><br>
+            <h2 for="email" >Email</h2>
+            <input type="email" style="padding: 10px; width:30rem;border-radius: 50px;" name="email" id="email" placeholder="enter your email" required>
 
-            <label for="hobbies">Hobbies</label>
-            <input type="text" name="hobbies" style="padding: 10px; width:60%;border: radius 50px;" id="hobbies" placeholder="Enter your hobbies "><br><br>
+            <h2 for="hobbies">Hobbies</h2>
+            <input type="text" name="hobbies" style="padding: 10px; width:30rem;border-radius: 50px;" id="hobbies" placeholder="Enter your hobbies "required><br><br>
 
-            <button type="submit">Sign In</button>
+            <button type="submit"style="padding:10px;border-radius: 10px;margin-left: 40px; align-items: center;width:100px;cursor:pointer;background:rgb(14, 210, 220);color:white;font-size: 20px" >Sign In</button>
         </form>
     </div>
     <script src="../js/signup.js"></script>

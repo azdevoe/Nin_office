@@ -7,20 +7,23 @@
     <link rel="stylesheet" href="../css/login.css">
     <title>Login Page</title>
 </head>
-<body>
+<body style="padding: 0;margin:0;">
     <div class="container" id="container">
-        <h1 id="h">welcome To Our Login Page</h1>
+        <span style="background: rgb(14, 210, 220);padding:10px;color:white;margin-top:0; text-align:center;display:block;font-size:35px;">Login</span><br>
 
-        <form  method="post" id="loginform">
-            <label for="Nin" placeholder="enter your Nin here">Nin</label>
-            <input type="text" name="Nin" id="Nin"><br><br>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
+        <form  method="post" id="loginform" style="text-align:center; margin-top:0px;">
+            <h2 for="Nin">Nin</h2>
+            <input type="number" style="padding: 10px; width:30rem;border-radius: 50px;" name="Nin" id="Nin"placeholder="enter your Nin" required>
+            <div class="ninComplaint" style="color: red;"></div>
 
-            <button id="btn" type="submit">Submit</button>
+            
+            <h2 for="password">password</h2>
+            <input type="password" style="padding: 10px; width:30rem;border-radius: 50px;" name="password" id="password"placeholder="enter your password" required><br><br>
+
+            <button id="btn" type="submit"style="padding:10px;border-radius: 10px;margin-left: 40px; align-items: center;width:100px;cursor:pointer;background:rgb(14, 210, 220);color:white;font-size: 20px">Submit</button>
         </form><br><br>
-        <span style="cursor: pointer;" id="forgotPassword"><a href="/forgotPassword">forgot password</a></span>
-        <span style="cursor: pointer;" id="signup">Don't Have An Account<a href="/signup">Create One</a></span>
+        <span style="cursor: pointer;margin-left: 38vw; " id="forgotPassword"><a href="/forgotPassword" style="text-decoration:none;">forgot password</a></span>
+        <span style="cursor: pointer;" id="signup">Don't Have An Account<a href="/signup" style="text-decoration:none;">Create One</a></span>
     </div>
     <script src="../js/login.js"></script>
 </body>

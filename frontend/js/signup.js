@@ -13,6 +13,7 @@ form.addEventListener('submit', (e) => {
     // const hobbiesArray = hobbiesValue.split(',');
     const hobbiesValue = hobbiesInput.value.trim();
     const hobbiesArray = hobbiesValue.split(' ').filter(hobby => hobby !== '');
+   
 
     console.log(hobbiesArray, name, password, email);
       verifyUserCredentials({name, password,email,hobbies:hobbiesArray });
@@ -34,7 +35,6 @@ async function verifyUserCredentials(data) {
     if (response.ok) {
       document.cookie = `accessToken=${result.accessToken}; max-age=${3600}; Secure; HttpOnly`;
       document.cookie = `refreshToken=${result.refreshToken}; max-age=${604800}; Secure; HttpOnly`;
-      alert('Login successful!');
                  window.location = '/home'; 
 
     } else {
